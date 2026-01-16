@@ -17,7 +17,7 @@ The core philosophy of YAWL is **simplicity**. In a world of complex plugins, YA
 
 ## 📦 Installation
 
-1.  Download the latest version of the plugin from the [Releases](https://github.com/renwixx/YetAnotherWhitelistPlugin/releases) page or Modrinth (currently unavialable).
+1.  Download the latest version of the plugin from the [Releases](https://github.com/renwixx/YetAnotherWhitelistPlugin/releases) page or [Modrinth](https://modrinth.com/plugin/yawl).
 2.  Place the downloaded `.jar` file into the `plugins` folder of your Velocity proxy.
 3.  Start or restart your proxy.
 4.  The default configuration (`config.toml`), locales, and an empty `whitelist.txt` file will be generated in `plugins/yawl`. Edit them to your liking\!
