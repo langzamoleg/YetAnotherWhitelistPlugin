@@ -25,3 +25,9 @@ kick-active-on-revoke = true
 
 # Placeholder reload interval in minutes
 placeholder-reload-interval = 2
+
+[redis]
+# Redis connection URL (example: redis://localhost:6379)
+url = "redis://localhost:6379"
+# Optional password (leave empty if not required)
+password = ""

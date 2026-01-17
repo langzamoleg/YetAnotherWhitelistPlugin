@@ -9,7 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FileWhitelistStorage {
+public class FileWhitelistStorage implements WhitelistStorage {
     private final Path filePath;
     private final Path dataDirectory;
     private final Logger logger;
@@ -73,5 +73,9 @@ public class FileWhitelistStorage {
             } catch (IOException ignored) {}
             throw e;
         }
+    }
+
+    @Override
+    public void close() {
     }
 }

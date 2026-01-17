@@ -1,56 +1,76 @@
 # YAWL (Yet Another Whitelist Plugin)
 
-**YAWL** is an incredibly simple, lightweight, and efficient whitelist plugin designed exclusively for the **Velocity** proxy. If you need a no-fuss, easy-to-manage whitelist solution that just works, this is the plugin for you.
+**YAWL** is a lightweight, efficient, and feature-rich whitelist plugin designed exclusively for **Velocity** proxy servers. Built with simplicity and performance in mind, YAWL provides a robust solution for managing player access with support for both temporary and permanent whitelisting.
 
 ## 🚀 Overview
 
-The core philosophy of YAWL is **simplicity**. In a world of complex plugins, YAWL stands out by doing one thing and doing it well. It manages a server whitelist through a plain text file (`whitelist.txt`), making it easy to view, edit, and manage without needing databases or complicated commands. It's built to be as performant and unobtrusive as possible, ensuring zero impact on your server's performance.
+YAWL combines simplicity with powerful features. It uses **Redis** for distributed whitelist storage, making it perfect for multi-proxy setups. The plugin is designed to be performant and unobtrusive, ensuring zero impact on your server's performance while providing enterprise-grade whitelist management.
 
-## ✨ Why Choose YAWL?
+## ✨ Features
 
-  * **⚡ Lightweight:** The plugin has a minimal footprint. It's written to be extremely efficient and won't add any bloat or lag to your proxy.
-  * **✏️ Simple Text-Based Management:** All whitelisted players are stored in a simple `whitelist.txt` file. You can edit this file directly and reload the plugin in-game.
-  * **⚙️ Straightforward Configuration:** A clean `config.toml` file allows you to toggle the whitelist, change message languages, and set case sensitivity with ease.
-  * **🌍 Multi-Language Support:** YAWL comes with multiple pre-packaged languages (`en`, `ar`, `de`, `es`, `fr`, `ja`, `ru`, `uk`, `zh-cn`, `pt-br`, `tr`). It can even **automatically display messages in a player's client language**\!
-  * **🔄 Live Reload:** No need to restart your entire proxy. A simple command reloads the configuration and the whitelist instantly.
-  * **🔒 Permissions-Ready:** Fine-grained permission nodes give you complete control over who can manage the whitelist.
+  * **⚡ Lightweight & Fast:** Minimal footprint with zero performance impact on your proxy.
+  * **🔴 Redis Storage:** Distributed whitelist storage with Redis for multi-proxy setups and high availability.
+  * **⏱️ Temporary Whitelisting:** Add players with expiration times (e.g., `7d`, `30d`, `1mo`, `1y`).
+  * **🔄 Auto-Expiry:** Automatically kicks players when their whitelist access expires.
+  * **⚙️ Simple Configuration:** Clean `config.toml` file for easy customization.
+  * **🌍 Multi-Language Support:** Built-in support for 11 languages (`en`, `ar`, `de`, `es`, `fr`, `ja`, `ru`, `uk`, `zh-cn`, `pt-br`, `tr`).
+  * **🎯 Client-Language Detection:** Automatically displays messages in players' client language.
+  * **📊 PlaceholderAPI Integration:** Show remaining whitelist time on backend servers (requires [YetAnotherWhitelistCompanion](https://github.com/renwixx/YetAnotherWhitelistCompanion)).
+  * **🔄 Live Reload:** Update configuration and whitelist without restarting the proxy.
+  * **🔒 Fine-Grained Permissions:** Complete control over who can manage the whitelist.
 
 ## 📦 Installation
 
-1.  Download the latest version of the plugin from the [Releases](https://github.com/renwixx/YetAnotherWhitelistPlugin/releases) page or [Modrinth](https://modrinth.com/plugin/yawl).
-2.  Place the downloaded `.jar` file into the `plugins` folder of your Velocity proxy.
-3.  Start or restart your proxy.
-4.  The default configuration (`config.toml`), locales, and an empty `whitelist.txt` file will be generated in `plugins/yawl`. Edit them to your liking\!
+### Prerequisites
+- **Velocity** proxy server (version 3.4.0 or higher)
+- **Redis** server (for distributed whitelist storage)
+
+### Steps
+1. Download the latest version from [Releases](https://github.com/renwixx/YetAnotherWhitelistPlugin/releases) or [Modrinth](https://modrinth.com/plugin/yawl).
+2. Place the `.jar` file into the `plugins` folder of your Velocity proxy.
+3. Configure Redis connection in `plugins/yawl/config.toml` (generated on first start).
+4. Start or restart your proxy.
+5. Customize locales and settings as needed.
 
 ## ⚙️ Configuration
 
-The configuration is handled in the `plugins/yawl/config.toml` file.
+Configuration is located in `plugins/yawl/config.toml`:
 
 ```toml
 [settings]
-# Enable or disable the whitelist. If false, the plugin will not kick anyone.
+# Enable or disable the whitelist
 enabled = true
 
-# Sets the language for plugin messages.
-# Corresponds to a file name in the 'locales' folder (e.g., "en", "ru").
+# Default language for messages (en, ru, uk, de, fr, es, ar, zh-cn, ja, pt-br, tr)
 locale = "en"
 
-# If true and the client has a language set that exists in the plugin's locales folder, it will be displayed.
-# If false, it will display default locale defined by upper setting.
+# Use player's client language if available
 use-client-locale = false
 
-# If true, player names in the whitelist will be case-sensitive (e.g., "Player" is different from "player").
-# If false, case will be ignored ("Player" and "player" are the same).
-# It's recommended to keep this 'false' for user-friendliness.
+# Case-sensitive player names (recommended: false)
 case-sensitive = false
 
-# Kick active player immediately after whitelist removal or expiry.
-# If false, the player will remain connected until they reconnect or reload occurs.
+# Kick players immediately when removed from whitelist or access expires
 kick-active-on-revoke = true
 
-# Placeholder reload interval in minutes
+# Interval for updating placeholders on backend servers (in minutes)
 placeholder-reload-interval = 2
+
+[redis]
+# Redis server connection URL
+url = "redis://localhost:6379"
+
+# Redis password (leave empty if not required)
+password = ""
 ```
+
+### Redis Setup
+YAWL uses Redis for distributed whitelist storage, which enables:
+- **Multi-proxy support:** Share whitelist across multiple Velocity instances
+- **High availability:** Redis persistence ensures whitelist data survives restarts
+- **Real-time sync:** Changes are instantly available across all proxies
+
+Make sure your Redis server is running and accessible before starting the plugin.
 
 ## 🆔 Placeholders
 Starting with version 1.2, you can use the `%yawl_duration%` placeholder, which contains the amount of time remaining for the player. To use placeholders, you need to install [YetAnotherWhitelistCompanion](https://github.com/renwixx/YetAnotherWhitelistCompanion) and [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) on your backend server(s).

@@ -15,6 +15,8 @@ public class PluginConfig {
     private final boolean useClientLocale;
     private final boolean kickActiveOnRevoke;
     private final long placeholderReloadInterval;
+    private final String redisUrl;
+    private final String redisPassword;
 
     public PluginConfig(Path dataDirectory, Logger logger) {
         Path configFile = saveDefaultConfig(dataDirectory, logger);
@@ -31,6 +33,8 @@ public class PluginConfig {
         this.useClientLocale = toml.getBoolean("settings.use-client-locale", false);
         this.kickActiveOnRevoke = toml.getBoolean("settings.kick-active-on-revoke", true);
         this.placeholderReloadInterval = toml.getLong("settings.placeholder-reload-interval", 2L);
+        this.redisUrl = toml.getString("redis.url", "redis://localhost:6379");
+        this.redisPassword = toml.getString("redis.password");
     }
 
     private Path saveDefaultConfig(Path dataDirectory, Logger logger) {
@@ -70,5 +74,11 @@ public class PluginConfig {
     }
     public long getPlaceholderReloadInterval() {
         return placeholderReloadInterval;
+    }
+    public String getRedisUrl() {
+        return redisUrl;
+    }
+    public String getRedisPassword() {
+        return redisPassword;
     }
 }

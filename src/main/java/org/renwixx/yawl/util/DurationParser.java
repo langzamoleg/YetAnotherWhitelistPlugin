@@ -31,8 +31,8 @@ public final class DurationParser {
             case "h", "hr", "hrs", "hour", "hours" -> Optional.of(Duration.ofHours(amount));
             case "d", "day", "days" -> Optional.of(Duration.ofDays(amount));
             case "w", "wk", "wks", "week", "weeks" -> Optional.of(Duration.ofDays(amount * 7));
-            case "mo", "mon", "month", "months" -> Optional.of(Duration.ofDays(amount * 30)); // прибл.
-            case "y", "yr", "yrs", "year", "years" -> Optional.of(Duration.ofDays(amount * 365)); // прибл.
+            case "mo", "mon", "month", "months" -> Optional.of(Duration.ofDays(amount * 30)); // approx.
+            case "y", "yr", "yrs", "year", "years" -> Optional.of(Duration.ofDays(amount * 365)); // approx.
             default -> Optional.empty();
         };
     }
